@@ -1,0 +1,39 @@
+name: Build and Push Docker Image
+
+on:
+  push:
+    branches:
+      - main  # Déclenche le pipeline à chaque push sur la branche principale (main)
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Utiliser un environnement Ubuntu
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2  # Permet de récupérer le code source du dépôt
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1  # Configure Docker Buildx
+
+    - name: Cache Docker layers
+      uses: actions/cache@v2
+      with:
+        path: /tmp/.buildx-cache  # Cache les couches Docker pour accélérer les builds
+        key: ${{ runner.os }}-buildx-${{ github.sha }}
+        restore-keys: |
+          ${{ runner.os }}-buildx-
+
+    - name: Log in to DockerHub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}  # Utilise un secret pour le nom d'utilisateur DockerHub
+        password: ${{ secrets.DOCKER_PASSWORD }}  # Utilise un secret pour le mot de passe DockerHub
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v2
+      with:
+        context: .  # Utilise le contexte du dépôt pour le build
+        file: ./Dockerfile  # Spécifie le Dockerfile à utiliser
+        push: true  # Pousse l'image sur DockerHub
+        tags: ${{ secrets.DOCKER_USERNAME }}/docker-python-server:v1.0  # Tag de l'image Docker
