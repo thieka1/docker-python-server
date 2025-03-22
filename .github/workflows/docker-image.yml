@@ -36,4 +36,4 @@ jobs:
         context: .  # Utilise le contexte du dépôt pour le build
         file: ./Dockerfile  # Spécifie le Dockerfile à utiliser
         push: true  # Pousse l'image sur DockerHub
-        tags: ${{ secrets.DOCKER_USERNAME }}/docker-python-server:v1.0  # Tag de l'image Docker
+        tags: ${{ secrets.DOCKER_THIEKASOW }}/docker-python-server:v1.0  # Tag de l'image Docker
