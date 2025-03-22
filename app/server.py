@@ -5,7 +5,7 @@ class SimpleHandler(BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header("Content-type", "text/html")
         self.end_headers()
-        message = "<html><body><h1>Hello, Thieka!</h1></body></html>"
+        message = "<html><body><h1>Hello, Thieka Sow! Bienvenue</h1></body></html>"
         self.wfile.write(message.encode("utf-8"))
 
 

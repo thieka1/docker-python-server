@@ -11,13 +11,13 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2  # Permet de récupérer le code source du dépôt
+      uses: actions/checkout@v3  # Permet de récupérer le code source du dépôt
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1  # Configure Docker Buildx
 
     - name: Cache Docker layers
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: /tmp/.buildx-cache  # Cache les couches Docker pour accélérer les builds
         key: ${{ runner.os }}-buildx-${{ github.sha }}
